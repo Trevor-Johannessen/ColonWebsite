@@ -1,3 +1,13 @@
+/* FONTS */
+
+@font-face {
+    font-family: 'Minecraft';
+    src: local('Minecraft'), url(../../fonts/MinecraftRegular-Bmg3.otf) format('otf');
+  }
+  
+
+/* STYLING */
+
 #Terminal{
     border-color:yellow;
     border-width:2vh;
@@ -22,6 +32,8 @@
 
 .pixel{
     flex: 1;
+    text-align: center;
+    font-size: 15px;
 }
 
 .pixel:hover{

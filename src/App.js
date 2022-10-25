@@ -1,5 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
+import './fonts/MinecraftRegular-Bmg3.otf'
 import './components/Terminal/Terminal.css'
 import Terminal from './components/Terminal/Terminal.js'
 
