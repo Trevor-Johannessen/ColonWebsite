@@ -1,29 +1,43 @@
 import './App.css';
 import './fonts/MinecraftRegular-Bmg3.otf'
-import './components/Terminal/Terminal.css'
-import Terminal from './components/Terminal/Terminal.js'
-import api from './api'
+import Terminal from './components/Terminal/index.js'
+import Dictionary from './components/Dictionary';
+import React from 'react';
 
-let sendCode = () => {
-  let code = document.getElementById("code-input").value;
-  api.postText(code)
-  console.log(`Sending ${code}`)
-}
+class App extends React.Component{
+
+  constructor(props){
+    super(props);
+    this.state = {
+      instructions: ""
+    }
+  }
 
 
 
-function App() {
-  return (
-    <div className="App">
-      <div id="left-column">
-        <textarea
-          id="code-input"
-        />
-        <button id="submit-button" onClick={sendCode}>Submit</button>
+  sendCode = () => {
+    let code = document.getElementById("code-input").value;
+    console.log('sending code')
+    this.setState(prevState => ({
+        instructions: code
+      })
+    );
+      
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <div id="left-column">
+          <textarea
+            id="code-input"
+          />
+          <button id="submit-button" onClick={this.sendCode}>Submit</button>
+        </div>
+        <Terminal instructions={this.state.instructions}/>
+        <Dictionary/>
       </div>
-      <Terminal/>
-    </div>
-  );
+    ); 
+  }
 }
-
 export default App;

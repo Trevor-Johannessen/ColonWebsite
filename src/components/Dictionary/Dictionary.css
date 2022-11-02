@@ -1,0 +1,61 @@
+#Dictionary{
+    position:absolute;
+    right:0px;
+    top:0px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: .22fr .78fr;
+    width: 66vw;
+    height: 40vh;
+}
+
+
+#Dictionary-Scroll{
+    overflow: scroll;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.Dictionary-Card{
+    height: 20%;
+    font-size: x-large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top:1px;
+    border-width:1px;
+    border-color: black;
+    border-style:solid;
+}
+.Dictionary-Card:hover{
+    background-color: lightgrey;
+}
+
+#Dictionary-Content{
+    overflow: scroll;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    padding-left:5px;
+}
+
+.Example-List{
+    list-style-type: none;
+}
+
+ul.Example-List > li:before{
+    content: 'ー';
+    padding-right: 8px;
+    font-weight: bold;
+}
+
+.Example-Text{
+    background-color: rgb(56, 56, 56);
+    color: lightgrey;
+    display:inline-block;
+    margin-bottom:10px;
+    border-style: inset;
+    border-radius: 1px;
+    border-color:black;
+}

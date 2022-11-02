@@ -13,7 +13,9 @@
   border:5px;
   border-color:black;
   border-style:solid;
-  height:90vh;
+  height:89vh;
+  resize: none;
+  font-size: large;
 }
 
 #submit-button{
