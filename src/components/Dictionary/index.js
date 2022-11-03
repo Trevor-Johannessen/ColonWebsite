@@ -57,7 +57,18 @@ const pages = [
             </ul>
         </div>
     )],
-    ['End_Of_List', (<h1>End of List</h1>)]
+    ['. . .', (<h1>More Enteries Here!</h1>)],
+    ['Examples', (
+        <div>
+            <h1>Examples:</h1>
+            <h3>Some example pages to help you get started!</h3>
+            <h3>Example 1:</h3>
+            <p className='Example-Text'>
+                text: x=20, y=9, text="SUPPORT", color=white, background=blue<br/>
+                scroll: x=20, y=10, text="UKRAINE", speed=5, color=blue, background=green
+            </p>
+        </div>
+    )]
 ]
 
 export default class Dictionary extends React.Component{
