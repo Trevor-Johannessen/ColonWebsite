@@ -33,7 +33,7 @@ export default class Text{
         let ypos = this.y;
         
         for(let i=0; i<this.str.length; i++){
-            if (ypos >= scroll && ypos < scroll+18 && xpos >= 0 && xpos < 51){ // if first row of text is on screen
+            if (ypos >= scroll && ypos < scroll+19 && xpos >= 0 && xpos < 51){ // if first row of text is on screen
                 grid[ypos-scroll][xpos] = {text: this.str[i], color: this.color, background: this.background}
                 xpos++;
                 if(xpos > 50){

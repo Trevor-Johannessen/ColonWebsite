@@ -1,19 +1,23 @@
 #Dictionary{
     position:absolute;
     right:0px;
-    top:0px;
+    top:2px;
     overflow: hidden;
     display: grid;
     grid-template-columns: .22fr .78fr;
-    width: 66vw;
-    height: 40vh;
+    width: 44vw;
+    height: 39.3vh;
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
 }
 
 
 #Dictionary-Scroll{
     overflow: scroll;
+    border: 0px;
     border-color: black;
-    border-width: 2px;
+    border-right: 2px;
     border-style: solid;
 }
 
@@ -23,8 +27,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-top:1px;
-    border-width:1px;
+    border: 0px;
+    border-bottom:1px;
     border-color: black;
     border-style:solid;
 }
@@ -34,9 +38,6 @@
 
 #Dictionary-Content{
     overflow: scroll;
-    border-color: black;
-    border-width: 2px;
-    border-style: solid;
     padding-left:5px;
 }
 

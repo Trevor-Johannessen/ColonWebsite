@@ -1,0 +1,12 @@
+#Directory{
+    position:absolute;
+    overflow: hidden;
+    width: 22.5vw;
+    height: 39.3vh;
+    right:44.45vw;
+    top:2px;
+    overflow: scroll;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+}

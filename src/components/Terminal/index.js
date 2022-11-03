@@ -54,6 +54,7 @@ export default class Terminal extends React.Component{
             for(let i in this.state.instructions){
                 //console.log(`Executing ${JSON.stringify(this.state.instructions[i])}`)
                 if(this.state.instructions[i].dynamic){
+                    //console.log(`Scroll = ${this.state.scroll_position}`)
                     this.state.instructions[i].draw(grid, this.state.scroll_position, this.time);
                 }
             }
@@ -77,7 +78,7 @@ export default class Terminal extends React.Component{
             //console.log(`DeltaY = ${event.deltaY}`)
             //console.log(`PrevState = ${prevState.scroll_position}`)
             let newScrollPos = prevState.scroll_position + event.deltaY <= 0 ? 0: prevState.scroll_position + event.deltaY
-            //newScrollPos = newScrollPos+19 > this.state.anchor ? this.state.anchor-19 : newScrollPos;
+            newScrollPos = newScrollPos+19 > this.state.anchor ? this.state.anchor-19 : newScrollPos;
 
 
             return ({
@@ -98,11 +99,13 @@ export default class Terminal extends React.Component{
             let parsed_instructions = parser(this.props.instructions);
 
             let maximum = 19;
-            for(let index in this.props.instructions){
-                if(this.props.instructions[index].y && maximum < this.props.instructions[index].y)
-                    maximum = this.props.instructions[index].y;
+            for(let index in parsed_instructions){
+                console.log(`instruction = ${parsed_instructions[index]}`)
+                console.log(`Comparing ${maximum} to new value ${parsed_instructions[index].y}`)
+                if(parsed_instructions[index].y && maximum < parsed_instructions[index].y)
+                    maximum = parsed_instructions[index].y+1;
             }
-
+            console.log(`maximum = ${maximum}`)
 
             this.setState(prevState => ({
                 grid: this.redraw(parsed_instructions, 0),
@@ -114,17 +117,18 @@ export default class Terminal extends React.Component{
                 anchor: maximum
             }))
         }
+        console.log(`Anchor = ${this.state.anchor}`)
         
     }
 
     componentDidMount(){
         this.myInterval = setInterval(() => {
+
             this.setState(prevState => ({
                 grid: this.nextFrame(prevState.grid),
                 textColor: prevState.textColor,
                 backgroundColor: prevState.backgroundColor,
                 cursor: prevState.cursor,
-                time: prevState.time,
                 instructions: prevState.instructions,
                 scroll_position: prevState.scroll_position
             })
