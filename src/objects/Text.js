@@ -31,10 +31,10 @@ export default class Text{
     draw = (grid, scroll) => {
         let xpos = this.x;
         let ypos = this.y;
-
+        
         for(let i=0; i<this.str.length; i++){
-            if (scroll <= this.y && scroll+19 > this.y && xpos >= 0 && xpos < 51){ // if first row of text is on screen
-                grid[ypos][xpos] = {text: this.str[i], color: this.color, background: this.background}
+            if (ypos >= scroll && ypos < scroll+18 && xpos >= 0 && xpos < 51){ // if first row of text is on screen
+                grid[ypos-scroll][xpos] = {text: this.str[i], color: this.color, background: this.background}
                 xpos++;
                 if(xpos > 50){
                     xpos = 0;

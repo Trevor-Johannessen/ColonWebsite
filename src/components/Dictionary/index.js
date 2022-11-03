@@ -65,7 +65,7 @@ const pages = [
             <h3>Example 1:</h3>
             <p className='Example-Text'>
                 text: x=20, y=9, text="SUPPORT", color=white, background=blue<br/>
-                scroll: x=20, y=10, text="UKRAINE", speed=5, color=blue, background=green
+                scroll: x=20, y=10, text="UKRAINE", speed=5, color=blue, background=yellow
             </p>
         </div>
     )]

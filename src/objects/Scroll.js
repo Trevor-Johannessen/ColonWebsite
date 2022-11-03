@@ -42,8 +42,8 @@ export default class Scroll{
 
         let textToPrint = this.str.substring(this.position) + this.str.substring(0, this.position);
         for(let i=0; i<textToPrint.length; i++){
-            if (scroll <= this.y && scroll+19 > this.y && xpos >= 0 && xpos < 51){ // if first row of text is on screen
-                grid[ypos][xpos] = {text: textToPrint[i], color: this.color, background: this.background}
+            if (ypos >= scroll && ypos < scroll+18 && xpos >= 0 && xpos < 51){ 
+                grid[ypos-scroll][xpos] = {text: textToPrint[i], color: this.color, background: this.background}
                 xpos++;
                 if(xpos > 50){
                     xpos = 0;

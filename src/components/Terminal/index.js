@@ -10,10 +10,11 @@ export default class Terminal extends React.Component{
             grid: [...Array(19)].map(_=>Array(51).fill({text: "", color: "", background: ""})),
             textColor: 'white',
             backgroundColor: 'black',
-            instructions: parser(this.props.instructions)
+            instructions: parser(this.props.instructions),
+            scroll_position: 1,
+            anchor: 19
         }
         this.time = 0;
-        this.scroll_position = 0;
     }
 
     /*    Create a pixel array to initalize the terminal.
@@ -48,12 +49,12 @@ export default class Terminal extends React.Component{
     }
 
     nextFrame(grid){
-        console.log(`Instructions = ${this.state.instructions}`)
+        //console.log(`Instructions = ${this.state.instructions}`)
         if(this.state.instructions){
             for(let i in this.state.instructions){
-                console.log(`Executing ${JSON.stringify(this.state.instructions[i])}`)
+                //console.log(`Executing ${JSON.stringify(this.state.instructions[i])}`)
                 if(this.state.instructions[i].dynamic){
-                    this.state.instructions[i].draw(grid, this.scroll_position, this.time);
+                    this.state.instructions[i].draw(grid, this.state.scroll_position, this.time);
                 }
             }
         }
@@ -61,24 +62,56 @@ export default class Terminal extends React.Component{
         return grid;
     }
 
-    redrawGrid(instructions, grid){
+    redraw(instructions, scroll_position){
+        let grid = [...Array(19)].map(_=>Array(51).fill({text: "", color: "", background: ""}))
         for(let index in instructions){
-            console.log("Redrawing" + JSON.stringify(instructions[index]))
-            grid = instructions[index].draw(grid, this.scroll_position)
+            grid = instructions[index].draw(grid, scroll_position, 0)
         }
         return grid;
+    }
+
+    
+
+    scroll = (event) => {
+        this.setState(prevState => {
+            //console.log(`DeltaY = ${event.deltaY}`)
+            //console.log(`PrevState = ${prevState.scroll_position}`)
+            let newScrollPos = prevState.scroll_position + event.deltaY <= 0 ? 0: prevState.scroll_position + event.deltaY
+            //newScrollPos = newScrollPos+19 > this.state.anchor ? this.state.anchor-19 : newScrollPos;
+
+
+            return ({
+            grid: this.redraw(prevState.instructions, newScrollPos),
+            textColor: prevState.textColor,
+            backgroundColor: prevState.backgroundColor,
+            cursor: prevState.cursor,
+            time: prevState.time,
+            instructions: prevState.instructions,
+            scroll_position: newScrollPos,
+            anchor: prevState.anchor
+        })});
     }
 
     componentDidUpdate(prevProps, prevState){
         if(prevProps.instructions !==this.props.instructions){
             this.time = 0;
             let parsed_instructions = parser(this.props.instructions);
+
+            let maximum = 19;
+            for(let index in this.props.instructions){
+                if(this.props.instructions[index].y && maximum < this.props.instructions[index].y)
+                    maximum = this.props.instructions[index].y;
+            }
+
+
             this.setState(prevState => ({
-                grid: this.redrawGrid(parsed_instructions, [...Array(19)].map(_=>Array(51).fill({text: "", color: "", background: ""}))),
+                grid: this.redraw(parsed_instructions, 0),
                 textColor: prevState.textColor,
                 backgroundColor: prevState.backgroundColor,
                 cursor: prevState.cursor,
-                instructions: parsed_instructions
+                instructions: parsed_instructions,
+                scroll_position: 0,
+                anchor: maximum
             }))
         }
         
@@ -92,7 +125,8 @@ export default class Terminal extends React.Component{
                 backgroundColor: prevState.backgroundColor,
                 cursor: prevState.cursor,
                 time: prevState.time,
-                instructions: prevState.instructions
+                instructions: prevState.instructions,
+                scroll_position: prevState.scroll_position
             })
         )}, 50
         )
@@ -102,13 +136,12 @@ export default class Terminal extends React.Component{
         clearInterval(this.myInterval);
     }
 
-
-
     render(){
         return(
             <div
             id="Terminal"
             key="Terminal"
+            onWheel={this.scroll}
             >
             {this.createPixels()}
             
