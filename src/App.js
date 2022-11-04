@@ -22,7 +22,7 @@ class App extends React.Component{
         instructions: code
       })
     );
-    localStorage.setItem('code', code)
+    localStorage.setItem('colon-code', code)
   }
 
   render() {
@@ -30,7 +30,7 @@ class App extends React.Component{
       <div className="App">
         <div id="left-column">
           <textarea id="code-input">
-            {localStorage.getItem('code')}
+            {localStorage.getItem('colon-code')}
           </textarea>
           <button id="submit-button" onClick={this.sendCode}>Submit</button>
         </div>
