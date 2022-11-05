@@ -10,3 +10,18 @@
     border-width: 2px;
     border-style: solid;
 }
+
+.Directory-Card{
+    height: 20%;
+    font-size: x-large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0px;
+    border-bottom:1px;
+    border-color: black;
+    border-style:solid;
+}
+.Directory-Card:hover{
+    background-color: lightgrey;
+}

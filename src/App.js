@@ -10,16 +10,32 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      instructions: ""
+      instructions: "",
+      images: this.loadCookies()
     }
   }
 
+  loadImages = () => {
+    this.setState(prevState => ({
+        instructions: prevState.instructions,
+        images: this.loadCookies()
+    }));
+  }
+
+  loadCookies = () => {
+    return document.cookie.split('; ').reduce((prev, current) => {
+      const [name, ...value] = current.split('=');
+      prev[name] = value.join('=');
+      return prev;
+    }, {});
+  }
 
   sendCode = () => {
     let code = document.getElementById("code-input").value;
     console.log('sending code')
     this.setState(prevState => ({
-        instructions: code
+        instructions: code,
+        images: prevState.images
       })
     );
     localStorage.setItem('colon-code', code)
@@ -34,7 +50,10 @@ class App extends React.Component{
           </textarea>
           <button id="submit-button" onClick={this.sendCode}>Submit</button>
         </div>
-        <LocalStorageDirectory/>
+        <LocalStorageDirectory
+          images={this.state.images}
+          reloadImages={this.loadImages}
+        />
         <Terminal instructions={this.state.instructions}/>
         <Dictionary/>
       </div>
